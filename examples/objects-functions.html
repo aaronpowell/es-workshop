@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+    <h1>An introduction to object manipulation</h1>
+
+    <button onclick="run()">Run demos</button>
+    <script>
+        function run() {
+            let aaron = {
+                "firstName": "Aaron",
+                "lastName": "Powell",
+                "employer": "Readify",
+                "role": "Principal Consultant"
+            };
+
+            let firstName = aaron.firstName;
+            let lastName = aaron.lastName;
+
+            function sayMessage(name, msg) {
+                console.log((msg || 'Hello, my name is ') +name);
+            }
+
+            sayMessage(firstName + '' + lastName);
+
+            function add() {
+                var x = 0;
+
+                for(var i = 0; i < arguments.length; i++) {
+                    x += arguments[i];
+                }
+
+                return x;
+            }
+
+            console.log(add(1, 2, 3, 4, 5));
+        }
+    </script>
+</body>
+
+</html>

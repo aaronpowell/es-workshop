@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+    <h1>An introduction to promises</h1>
+
+    <p>
+        Exercise: Convert the callback-based functions to using promises.
+    </p>
+
+    <button onclick="run()">Run demos</button>
+    <script>
+        function run() {
+            function fluentTimeout(cb) {
+                setTimeout(cb, 1000);
+            }
+
+            fluentTimeout(() => console.log('we are done!'));
+
+            function errorHandling(cb, err) {
+                setTimeout(() =>
+                    err(new Error('Soemthing went wrong'), 1000)
+                );
+            }
+
+            errorHandling(() => console.log('successful'), (err) => console.error('Something went wrong', err));
+
+            var people = {
+                getPeople: function (cb) {
+                    var that = this;
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('get', 'http://output.jsbin.com/royebo.json');
+
+                    xhr.addEventListener('load', function (e) {
+                        var o = JSON.parse(xhr.responseText);
+                        that.knownPeople = o.people;
+                        cb();
+                    }, false);
+
+                    xhr.send();
+                },
+
+                knownPeople: []
+            };
+
+            people.getPeople(function () {
+                console.log(people.knownPeople);
+            });
+        }
+    </script>
+</body>
+
+</html>

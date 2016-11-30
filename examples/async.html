@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+    <h1>An introduction to async functions</h1>
+
+    <p>Exercise: Update the promise examples to use async functions</p>
+
+    <button onclick="run()">Run demos</button>
+    <script>
+        function run() {
+            function getPeople() {
+                fetch('http://output.jsbin.com/royebo.json')
+                    .then(res => res.json())
+                    .then(({ people }) => console.log(people));
+            }
+
+            getPeople();
+
+            function delay(something, ms = 1000) {
+                return new Promise((resolve, reject) =>
+                    setTimeout(() => {
+                        try {
+                            let x = something();
+                            resolve(x);
+                        } catch (e) {
+                            reject(e);
+                        }
+                    }, ms)
+                );
+            }
+
+            delay(() => console.log('woop'))
+                .then(() => console.log('after woop'));
+
+
+            delay(() => {
+                throw new Error('Oh noes!');
+            })
+            .then(() => console.log('this should not happen'))
+            .catch(e => console.error(e));
+        }
+    </script>
+</body>
+
+</html>
