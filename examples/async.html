@@ -13,10 +13,10 @@
     <button onclick="run()">Run demos</button>
     <script>
         function run() {
-            function getPeople() {
-                fetch('http://output.jsbin.com/royebo.json')
-                    .then(res => res.json())
-                    .then(({ people }) => console.log(people));
+            async function getPeople() {
+                let response = await fetch('http://output.jsbin.com/royebo.json');
+                let { people } = await response.json();
+                console.log(people);
             }
 
             getPeople();
@@ -34,15 +34,23 @@
                 );
             }
 
-            delay(() => console.log('woop'))
-                .then(() => console.log('after woop'));
+            async function delay1() {
+                await delay(() => console.log('woop'));
+                console.log('after woop');
+            }
+            delay1();
 
-
-            delay(() => {
-                throw new Error('Oh noes!');
-            })
-            .then(() => console.log('this should not happen'))
-            .catch(e => console.error(e));
+            async function delay2() {
+                try {
+                    await delay(() => {
+                        throw new Error('Oh noes!');
+                    });
+                    console.log('should not get here!');
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+            delay2();
         }
     </script>
 </body>

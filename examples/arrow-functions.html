@@ -15,30 +15,23 @@
     <button onclick="run()">Run demos</button>
     <script>
         function run() {
-            function add(x, y) {
-                return x, y;
-            }
+            const add = (x, y) => x + y;
 
             console.log(add(1, 2));
 
             var items = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-            console.log(items.filter(function (x) {
-                return x % 2;
-            }).map(function (x) {
-                return x * x;
-            }));
+            console.log(items.filter(x => x % 2).map(x => x * x));
 
             var people = {
                 getPeople: function (cb) {
-                    var that = this;
                     var xhr = new XMLHttpRequest();
 
                     xhr.open('get', 'http://output.jsbin.com/royebo.json');
 
-                    xhr.addEventListener('load', function (e) {
+                    xhr.addEventListener('load', (e) => {
                         var o = JSON.parse(xhr.responseText);
-                        that.knownPeople = o.people;
+                        this.knownPeople = o.people;
                         cb();
                     }, false);
 
@@ -48,9 +41,7 @@
                 knownPeople: []
             };
 
-            people.getPeople(function () {
-                console.log(people.knownPeople);
-            });
+            people.getPeople(() => console.log(people.knownPeople));
         }
     </script>
 </body>

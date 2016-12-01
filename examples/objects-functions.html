@@ -18,20 +18,19 @@
                 "role": "Principal Consultant"
             };
 
-            let firstName = aaron.firstName;
-            let lastName = aaron.lastName;
+            let { firstName, lastName } = aaron;
 
-            function sayMessage(name, msg) {
-                console.log((msg || 'Hello, my name is ') +name);
+            function sayMessage(name, msg = 'Hello, my name is ') {
+                console.log(msg +name);
             }
 
-            sayMessage(firstName + '' + lastName);
+            sayMessage(`${firstName} ${lastName}`);
 
-            function add() {
+            function add(...args) {
                 var x = 0;
 
-                for(var i = 0; i < arguments.length; i++) {
-                    x += arguments[i];
+                for(var i = 0; i < args.length; i++) {
+                    x += args[i];
                 }
 
                 return x;
